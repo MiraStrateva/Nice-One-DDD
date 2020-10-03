@@ -1,0 +1,10 @@
+# Exclude directories made during build
+[Bb]in/
+[Oo]bj/
+
+# Exclude vs directory
+.vs/
+
+# User-specific files
+*.user
+*.txt
