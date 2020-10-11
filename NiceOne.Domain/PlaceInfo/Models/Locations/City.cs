@@ -4,7 +4,7 @@
     using NiceOne.Domain.PlaceInfo.Exceptions;
     using static NiceOne.Domain.Common.Models.ModelConstants.Common;
 
-    public class City
+    public class City : Entity<int>
     {
         internal City(string name)
         {
@@ -12,11 +12,11 @@
 
             this.Name = name;
         }
-        public string Name { get; }
+        public string Name { get; private set; }
 
         private void Validate(string name)
         {
-            Guard.ForStringLength<InvalidCityException>(
+            Guard.ForStringLength<InvalidLocationException>(
                 name,
                 MinNameLength,
                 MaxNameLength,

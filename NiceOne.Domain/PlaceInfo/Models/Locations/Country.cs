@@ -48,7 +48,7 @@
         }
 
         private void Validate(string name)
-            => Guard.ForStringLength<InvalidCountryException>(
+            => Guard.ForStringLength<InvalidLocationException>(
                 name,
                 MinNameLength,
                 MaxNameLength,
