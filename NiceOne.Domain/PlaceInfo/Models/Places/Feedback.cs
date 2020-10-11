@@ -1,21 +1,21 @@
 ﻿namespace NiceOne.Domain.PlaceInfo.Models.Places
 {
-    using NiceOne.Domain.Common;
+    using Microsoft.JSInterop;
     using NiceOne.Domain.Common.Models;
     using NiceOne.Domain.PlaceInfo.Exceptions;
     using System;
     using static NiceOne.Domain.Common.Models.ModelConstants.Feedback;
 
-    public class Feedback : Entity<int>, IAggregateRoot
+    public class Feedback : Entity<int>
     {
-        internal Feedback (string text, int rating, string IserId)
+        internal Feedback (string text, int rating, string userId)
         {
             this.Validate(text, rating);
 
             this.Text = text;
             this.Rating = rating;
             this.Date = DateTime.Now;
-            this.UserId = UserId;
+            this.UserId = userId;
         }
 
         public string Text { get; private set; }
