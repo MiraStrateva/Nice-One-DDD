@@ -1,5 +1,7 @@
 ﻿namespace NiceOne.Domain.PlaceInfo.Models.Places
 {
+    using Microsoft.AspNetCore.Server.IIS.Core;
+    using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
     using NiceOne.Domain.Common;
     using NiceOne.Domain.Common.Models;
     using NiceOne.Domain.PlaceInfo.Exceptions;
@@ -94,9 +96,9 @@
             return this;
         }
 
-        public void AddFeedback(Feedback feedback)
+        public void AddFeedback(string text, int rating, string userId)
         {
-            this.feedbacks.Add(feedback);
+            this.feedbacks.Add(new Feedback(text, rating, userId));
         }
 
         private void Validate(string name, string description)
