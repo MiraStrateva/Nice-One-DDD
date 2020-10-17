@@ -1,4 +1,4 @@
-﻿namespace Core.Application.PlaceInfo.Places.Queries.ListByCategory
+﻿namespace Core.Application.PlaceInfo.Places.Queries.GetPlacesByCategory
 {
     using Core.Application.PlaceInfo.Places.Queries.Common;
     using MediatR;
