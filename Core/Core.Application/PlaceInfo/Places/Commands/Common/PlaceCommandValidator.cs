@@ -10,7 +10,10 @@
     public class PlaceCommandValidator<TCommand> : AbstractValidator<PlaceCommand<TCommand>>
         where TCommand : EntityCommand<int>
     {
-        public PlaceCommandValidator(IPlaceDomainRepository placeRepository, ICountryDomainRepository countryRepository)
+        public PlaceCommandValidator(
+            IPlaceDomainRepository placeRepository, 
+            ICategoryDomainRepository categoryRepository,
+            ICountryDomainRepository countryRepository)
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
@@ -24,10 +27,10 @@
                 .MaximumLength(MaxDescriptionLength)
                 .NotEmpty();
 
-            this.RuleFor(c => c.CategoryId)
-                .MustAsync(async (category, token) => await placeRepository
-                    .GetCategory(category, token) != null)
-                .WithMessage("{PropertyName} does not exist.");
+            //this.RuleFor(c => c.CategoryId)
+            //    .MustAsync(async (category, token) => await categoryRepository
+            //        .Get(category, token) != null)
+            //    .WithMessage("{PropertyName} does not exist.");
 
             this.RuleFor(c => c.CountryId)
                 .MustAsync(async (counrty, token) => await countryRepository

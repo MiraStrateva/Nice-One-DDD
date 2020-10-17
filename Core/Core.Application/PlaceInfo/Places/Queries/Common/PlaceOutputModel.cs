@@ -10,5 +10,7 @@
         public string Country { get; private set; }
         public double Rating { get; private set; }
         public int FeedbackCount { get; private set; }
+
+        public int UserId { get; private set; }
     }
 }
