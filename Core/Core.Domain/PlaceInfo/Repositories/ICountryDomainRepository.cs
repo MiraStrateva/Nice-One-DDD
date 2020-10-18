@@ -9,6 +9,6 @@
     {
         Task<Country> Find(int id, CancellationToken cancellationToken = default);
         Task<City> Find(int id, int cityId, CancellationToken cancellationToken = default);
-        Task Delete(int id, CancellationToken cancellationToken = default);
+        Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

@@ -6,9 +6,9 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class DeleteCountryCommand : EntityCommand<int>, IRequest<Unit>
+    public class DeleteCountryCommand : EntityCommand<int>, IRequest<Result>
     {
-        public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, Unit>
+        public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, Result>
         {
             private readonly ICountryDomainRepository countryRepository;
 
@@ -17,13 +17,10 @@
                 this.countryRepository = countryRepository;
             }
 
-            public async Task<Unit> Handle(
+            public async Task<Result> Handle(
                 DeleteCountryCommand request,
                 CancellationToken cancellationToken)
-            {
-                await this.countryRepository.Delete(request.Id);
-                return Unit.Value;
-            }
+                => await this.countryRepository.Delete(request.Id);
         }
     }
 }

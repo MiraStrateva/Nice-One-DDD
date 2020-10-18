@@ -22,12 +22,19 @@
             : base(db)
             => this.mapper = mapper;
 
-        public async Task Delete(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)
         {
             var country = await Find(id);
+            if (country == null)
+            {
+                return false;
+            }
+
             Data.Set<Country>().Remove(country);
 
-            await Data.SaveChangesAsync();
+            await Data.SaveChangesAsync(cancellationToken);
+
+            return true;
         }
 
         public async Task<Country> Find(int id, CancellationToken cancellationToken = default)
