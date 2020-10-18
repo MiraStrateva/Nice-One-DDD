@@ -4,7 +4,12 @@
     using Common.Application;
     using Common.Application.Contracts;
     using Common.Domain;
+    using Common.Infrastructure;
     using Common.Infrastructure.Events;
+    using Core.Infrastructure.Identity;
+    using Core.Infrastructure.Persistence;
+    using Core.Infrastructure.PlaceInfo;
+    using Core.Infrastructure.Statistics;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -19,22 +24,23 @@
             this IServiceCollection services,
             IConfiguration configuration)
             => services
-                //.AddDatabase(configuration)
+                .AddDatabase(configuration)
                 .AddRepositories()
                 .AddIdentity(configuration)
                 .AddTransient<IEventDispatcher, EventDispatcher>();
 
-        //private static IServiceCollection AddDatabase(
-        //    this IServiceCollection services,
-        //    IConfiguration configuration)
-        //    => services
-        //        .AddDbContext<CarRentalDbContext>(options => options
-        //            .UseSqlServer(
-        //                configuration.GetConnectionString("DefaultConnection"),
-        //                sqlServer => sqlServer
-        //                    .MigrationsAssembly(typeof(CarRentalDbContext).Assembly.FullName)))
-        //        .AddScoped<IDealershipDbContext>(provider => provider.GetService<CarRentalDbContext>())
-        //        .AddTransient<IInitializer, DatabaseInitializer>();
+        private static IServiceCollection AddDatabase(
+            this IServiceCollection services,
+            IConfiguration configuration)
+            => services
+                .AddDbContext<NiceOneDbContext>(options => options
+                    .UseSqlServer(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        sqlServer => sqlServer
+                            .MigrationsAssembly(typeof(NiceOneDbContext).Assembly.FullName)))
+                .AddScoped<IPlaceInfoDbContext>(provider => provider.GetService<NiceOneDbContext>())
+                .AddScoped<IStatisticDbContext>(provider => provider.GetService<NiceOneDbContext>())
+                .AddTransient<IInitializer, DatabaseInitializer>();
 
         internal static IServiceCollection AddRepositories(this IServiceCollection services)
             => services
@@ -50,16 +56,16 @@
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            //services
-            //    .AddIdentity<User, IdentityRole>(options =>
-            //    {
-            //        options.Password.RequiredLength = 6;
-            //        options.Password.RequireDigit = false;
-            //        options.Password.RequireLowercase = false;
-            //        options.Password.RequireNonAlphanumeric = false;
-            //        options.Password.RequireUppercase = false;
-            //    })
-            //    .AddEntityFrameworkStores<CarRentalDbContext>();
+            services
+                .AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                })
+                .AddEntityFrameworkStores<NiceOneDbContext>();
 
             var secret = configuration
                 .GetSection(nameof(ApplicationSettings))
@@ -86,8 +92,8 @@
                     };
                 });
 
-            //services.AddTransient<IIdentity, IdentityService>();
-            //services.AddTransient<IJwtTokenGenerator, JwtTokenGeneratorService>();
+            services.AddTransient<IIdentity, IdentityService>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGeneratorService>();
 
             return services;
         }

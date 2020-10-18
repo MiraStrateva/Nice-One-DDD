@@ -1,7 +1,9 @@
 ﻿namespace Core.Domain.PlaceInfo.Models.Places
 {
     using Common.Domain.Models;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [NotMapped]
     public class PlaceType : Enumeration
     {
         public static readonly PlaceType Tourist = new PlaceType(1, nameof(Tourist));

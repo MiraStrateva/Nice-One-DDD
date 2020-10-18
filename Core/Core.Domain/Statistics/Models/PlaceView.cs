@@ -10,8 +10,8 @@
             this.UserId = userId;
         }
 
-        public int PlaceId { get; }
+        public int PlaceId { get; private set; }
 
-        public string? UserId { get; }
+        public string? UserId { get; private set; }
     }
 }

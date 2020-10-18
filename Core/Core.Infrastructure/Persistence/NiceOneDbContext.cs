@@ -1,10 +1,13 @@
-﻿namespace Core.Infrastructure.PlaceInfo.Persistence
+﻿namespace Core.Infrastructure.Persistence
 {
     using Common.Domain.Models;
     using Common.Infrastructure.Events;
     using Core.Domain.PlaceInfo.Models.Categories;
     using Core.Domain.PlaceInfo.Models.Locations;
     using Core.Domain.PlaceInfo.Models.Places;
+    using Core.Domain.Statistics.Models;
+    using Core.Infrastructure.PlaceInfo;
+    using Core.Infrastructure.Statistics;
     using Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -14,14 +17,15 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class PlaceInfoDbContext : IdentityDbContext<User>,
-        IPlaceInfoDbContext
+    internal class NiceOneDbContext : IdentityDbContext<User>,
+        IPlaceInfoDbContext,
+        IStatisticDbContext
     {
         private readonly IEventDispatcher eventDispatcher;
         private readonly Stack<object> savesChangesTracker;
 
-        public PlaceInfoDbContext(
-            DbContextOptions<PlaceInfoDbContext> options,
+        public NiceOneDbContext(
+            DbContextOptions<NiceOneDbContext> options,
             IEventDispatcher eventDispatcher)
             : base(options)
         {
@@ -39,6 +43,10 @@
         public DbSet<Feedback> Feedbacks { get; set; } = default!;
 
         public DbSet<Place> Places { get; set; } = default!;
+
+        public DbSet<Statistics> Statistics { get; set; } = default!;
+
+        public DbSet<PlaceView> PlaceViews { get; set; } = default!;
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

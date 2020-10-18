@@ -2,8 +2,10 @@
 {
     using Common.Domain.Models;
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
+    [NotMapped]
     public class Location : ValueObject
     {
         internal Location(Country country, City city)

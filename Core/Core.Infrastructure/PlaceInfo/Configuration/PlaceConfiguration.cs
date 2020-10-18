@@ -17,6 +17,12 @@
 
             builder.Property(p => p.Description)
                 .HasMaxLength(MaxDescriptionLength);
+
+            builder.Property(p => p.CityId)
+                .IsRequired();
+
+            builder.Property(p => p.CountryId)
+                .IsRequired();
         }
     }
 }

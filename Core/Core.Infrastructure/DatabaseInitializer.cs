@@ -2,7 +2,7 @@
 {
     using Common.Domain;
     using Common.Infrastructure;
-    using Core.Infrastructure.PlaceInfo.Persistence;
+    using Core.Infrastructure.Persistence;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
@@ -11,11 +11,11 @@
 
     internal class DatabaseInitializer : IInitializer
     {
-        private readonly PlaceInfoDbContext db;
+        private readonly NiceOneDbContext db;
         private readonly IEnumerable<IInitialData> initialDataProviders;
 
         public DatabaseInitializer(
-            PlaceInfoDbContext db,
+            NiceOneDbContext db,
             IEnumerable<IInitialData> initialDataProviders)
         {
             this.db = db;

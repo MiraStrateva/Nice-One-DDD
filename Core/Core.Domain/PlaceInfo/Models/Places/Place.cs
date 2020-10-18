@@ -7,6 +7,7 @@
     using Core.Domain.PlaceInfo.Models.Categories;
     using Core.Domain.PlaceInfo.Models.Locations;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using static Common.Domain.Models.ModelConstants.Common;
 
@@ -33,6 +34,8 @@
             this.Location = location;
             this.CategoryId = categoryId;
             this.UserId = userId;
+            this.CountryId = location.Country.Id;
+            this.CityId = location.City.Id;
 
             this.feedbacks = new HashSet<Feedback>();
             this.Type = placeType;
@@ -40,11 +43,36 @@
             this.AddEvent(new PlaceAddedDomainEvent());
         }
 
+        internal Place(
+            string name,
+            string description,
+            string userId,
+            int categoryId,
+            int countryId,
+            int cityId)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.CategoryId = categoryId;
+            this.UserId = userId;
+            this.CountryId = countryId;
+            this.CityId = cityId;
+
+            this.feedbacks = new HashSet<Feedback>();
+            this.Type = default!;
+            this.Location = default!;
+        }
+
         public string Name { get; private set; }
 
         public string Description { get; private set; }
 
+        [NotMapped]
         public Location Location { get; private set; }
+
+        public int CountryId { get; private set; }
+
+        public int CityId { get; private set; }
 
         public int CategoryId { get; private set; }
 
