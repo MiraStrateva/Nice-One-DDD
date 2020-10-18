@@ -1,5 +1,6 @@
 namespace Core.Startup
 {
+    using Common.Domain.Configuration;
     using Core.Application;
     using Core.Infrastructure;
     using Core.Web;
@@ -18,6 +19,7 @@ namespace Core.Startup
 
         public void ConfigureServices(IServiceCollection services)
             => services
+                .AddCommonDomain()
                 .AddApplication(this.Configuration)
                 .AddInfrastructure(this.Configuration)
                 .AddWebComponents();
