@@ -1,7 +1,8 @@
-﻿namespace Core.Infrastructure.PlaceInfo.Persistence
+﻿namespace Core.Infrastructure
 {
     using Common.Domain;
     using Common.Infrastructure;
+    using Core.Infrastructure.PlaceInfo.Persistence;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;

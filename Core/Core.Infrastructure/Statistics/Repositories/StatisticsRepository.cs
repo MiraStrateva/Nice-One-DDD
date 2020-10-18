@@ -10,13 +10,13 @@
     using Domain.Statistics.Repositories;
     using Microsoft.EntityFrameworkCore;
 
-    internal class StatisticsRepository : DataRepository<IStatisticsDbContext, Statistics>,
+    internal class StatisticsRepository : DataRepository<IStatisticDbContext, Statistics>,
         IStatisticDomainRepository,
         IStatisticQueryRepository
     {
         private readonly IMapper mapper;
 
-        public StatisticsRepository(IStatisticsDbContext db, IMapper mapper)
+        public StatisticsRepository(IStatisticDbContext db, IMapper mapper)
             : base(db)
             => this.mapper = mapper;
 

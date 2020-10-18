@@ -4,10 +4,10 @@
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
 
-    public class StatisticsDbContext : DbContext,
-        IStatisticsDbContext
+    public class StatisticDbContext : DbContext,
+        IStatisticDbContext
     {
-        public StatisticsDbContext(DbContextOptions<StatisticsDbContext> options)
+        public StatisticDbContext(DbContextOptions<StatisticDbContext> options)
             : base(options)
         {
         }

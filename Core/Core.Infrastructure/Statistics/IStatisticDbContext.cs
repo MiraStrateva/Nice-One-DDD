@@ -4,7 +4,7 @@
     using Domain.Statistics.Models;
     using Microsoft.EntityFrameworkCore;
 
-    internal interface IStatisticsDbContext : IDbContext
+    internal interface IStatisticDbContext : IDbContext
     {
         DbSet<Statistics> Statistics { get; }
 

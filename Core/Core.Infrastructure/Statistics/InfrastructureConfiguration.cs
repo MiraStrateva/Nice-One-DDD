@@ -7,6 +7,6 @@
     {
         public static IServiceCollection AddStatisticsInfrastructure(this IServiceCollection services)
             => services
-                .AddScoped<IStatisticsDbContext>(provider => provider.GetService<StatisticsDbContext>());
+                .AddScoped<IStatisticDbContext>(provider => provider.GetService<StatisticDbContext>());
     }
 }
